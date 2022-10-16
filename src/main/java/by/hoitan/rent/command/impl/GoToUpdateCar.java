@@ -25,6 +25,7 @@ public class GoToUpdateCar implements Command {
 
         String path;
         if(isAdmin(request)|isManager(request)){
+            request.setAttribute("update", true);
             request.setAttribute("car_statuses", Arrays.stream(CarStatus.values()).toArray());
             var id = request.getParameter("id");
             request.setAttribute("carID", id);

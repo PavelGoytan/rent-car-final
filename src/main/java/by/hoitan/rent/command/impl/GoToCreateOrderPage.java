@@ -29,16 +29,17 @@ public class GoToCreateOrderPage implements Command {
 
         if (id != null&&user!=null) {
             var car = carService.findById(Integer.parseInt(id)).get();
-            if(!car.getCarStatus().equals(CarStatus.BOOKED)&&
-                    !car.getCarStatus().equals(CarStatus.CAR_IS_SERVICED)
+            if(!car.getCarStatus().equals(CarStatus.CAR_IS_SERVICED)
             &&!car.getCarStatus().equals(CarStatus.IMPOSSIBLE_TO_RENT)) {
                 session.setAttribute("car", car);
                 path = JspHelper.getPath("create_order");
             } else {
                 request.setAttribute("massage", "Car "+ car + "IS BOOKED");
+                request.setAttribute("modelName", car.getModel());
+                request.setAttribute("modelNumber", car.getRegistrationNumber());
 //                var cars = carService.findAll();
 //                request.setAttribute("cars", cars);
-                path = JspHelper.getPath("all_car");
+                path = JspHelper.getPath("home");
             }
         } else if(user==null){
 //            var cars = carService.findAll();

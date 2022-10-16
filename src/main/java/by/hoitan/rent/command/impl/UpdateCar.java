@@ -7,6 +7,7 @@ import by.hoitan.rent.dao.exception.DAOException;
 import by.hoitan.rent.service.exception.ServiceException;
 import by.hoitan.rent.service.impl.CarServiceImpl;
 import by.hoitan.rent.util.JspHelper;
+import by.hoitan.rent.util.Pagination;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +19,8 @@ import java.math.BigDecimal;
 public class UpdateCar implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private final int LIMIT_CARS_ON_PAGE = 3;
 
     private final CarServiceImpl carService = CarServiceImpl.getInstance();
 
@@ -35,8 +38,9 @@ public class UpdateCar implements Command {
 
 //todo checker add car form
             if (carService.updateCar(car)) {
-                request.setAttribute("cars", carService.findAll());
-                path = JspHelper.getPath("all_car");
+//                request.setAttribute("cars", carService.findAll());
+                Pagination.setAttributeToSession(request, LIMIT_CARS_ON_PAGE, carService);
+                path = JspHelper.getPath("home");
             } else {
                 path = JspHelper.getPath("create_car");
             }

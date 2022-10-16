@@ -25,6 +25,7 @@ public class Pagination {
             page.add(i);
         }
         session.setAttribute("serviced", CarStatus.CAR_IS_SERVICED);
+        session.setAttribute("impossible", CarStatus.IMPOSSIBLE_TO_RENT);
         session.setAttribute("cars", carService.findByLimit(leftBorderCar, limit));
         session.setAttribute("page_number", currentPageNumber);
         session.setAttribute("max_page", maxNumberOfPage);
